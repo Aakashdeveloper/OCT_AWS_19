@@ -8,11 +8,6 @@
 
 
 
-AKIAZPP7G5I53KQN2OBP
-daLOa5VMEvyFByUX2/NyZFwdcKtmPi+8/TxKPFpl
-
-
-
 https://docs.aws.amazon.com/cli/latest/userguide/install-linux-al2017.html
 
 
@@ -165,7 +160,7 @@ Acc2 (Aakash developer)  Reciver
                 =>Create policy
                     =>Write JSon
                     {
-                        "Version":"2012-10-18",
+                        "Version":"2012-10-17",
                         "Statement":{
                             "Effect":"Allow",
                             "Action":"sts:AssumeRole",
@@ -184,3 +179,8 @@ Acc2 (Aakash developer)  Reciver
 
 mysql -h demodb.csdfnctztcgm.us-east-1.rds.amazonaws.com -P 3306
 -u root -p password
+
+
+aakashhanda         aakashdeveloper
+S3 Fullaccess         root accunt cannot access
+                        IAM user of aakashdeveloper can access aakashhand S3
