@@ -1,0 +1,186 @@
+/****************
+    Step To Create Users
+**********************/
+
+> Navigate to the AWS Sericve > IAM
+> Select User Tab
+
+
+
+
+AKIAZPP7G5I53KQN2OBP
+daLOa5VMEvyFByUX2/NyZFwdcKtmPi+8/TxKPFpl
+
+
+
+https://docs.aws.amazon.com/cli/latest/userguide/install-linux-al2017.html
+
+
+pip3 install --upgrade --user awscli
+
+
+=> Services dicussion
+=> IAM
+=> Distribution
+
+
+--------------------------------------
+sno |    name  |   English   | Hindi  |
+1   |   John   |             |   80%  |
+2   |   Ankit  |    80%      |        |
+---------------------------------------
+
+[
+    {
+        name:"john",
+        "hindi":80
+    },
+    {
+        name:"Ankit",
+        "engilsh":80
+    }
+]
+
+/**************************
+Check All Policy
+**************************/
+=> AWS Dashboard
+    =>IAM
+        =>Policies
+            =>List All Policy
+
+/**************************
+Create Custome Policy
+**************************/
+=> Policies
+    =>Create Policy
+        =>Choose Service(exp: S3)
+            => Select the actions
+                => Select Resources
+                    =>Review Policy
+                        =>Provide policy Name
+                            =>Create Policy
+
+/**************************
+Create New User With AWS console
+**************************/
+=> User
+    => Create User
+        => Name , Access type
+            =>Custome pAssword
+                =>Attach existing policies directly
+                    =>Select Policy
+                        =>Add Tags
+                            => Review And Create
+                        
+
+/**************************
+Logging with IAM
+**************************/
+=> Select User
+    =>Security Credential
+        =>use Summary Console sign-in link:
+            ex(https://276374296137.signin.aws.amazon.com/console)
+
+
+/**************************
+    Assign MFA
+**************************/
+=> Select User
+    =>Security Credential
+        =>"Assigned MFA device" click=>Manage
+            =>Virtual MFA
+                =>Show QR
+                    =>ScanQR and enter code
+
+/**************************
+    progammatic Access
+**************************/
+Install Aws Cli
+window=> https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html
+Mac & Linux => Sudo pip3 install -upgrade awscli
+    =>In Cmd 
+        => type "aws configure"
+            => Enter access key
+                => Secert access key
+                    => none & none
+
+=> aws s3 ls (list all bucket from the account)
+
+/**************************
+   Create Groups
+**************************/
+=> IAM
+    =>Groups
+        => Create Group
+            => Attach policy
+                =>Create
+
+/**************************
+   Add uSer to group
+**************************/
+=>Select group
+    =>user
+        =>Add User
+            =>Select Listed User
+                =>Add
+
+Roles are for the applications
+Groups for the user
+
+/**************************
+   Create Role
+**************************/
+=> Role
+    =>Create Role
+    `=> Aws Service
+        => Select service to which yo want to attach policy
+            => Add Permission to the Service
+                =>Add tags and Create
+
+** We can attach role to service on ther own dashboard
+
+/******************************************
+  Access resource from diff account
+******************************************/
+Acc1 (Aakash Handa)  Sender
+=>IAM
+    =>Role
+        =>Another AWS account
+            =>Account ID(of aakashdeveloper)
+                =>Add permission(s3 full access)
+                    =>RoleName
+
+
+
+Acc2 (Aakash developer)  Reciver
+** Access S3 of aakashhanda account
+=>  Create new user(with no permission no group)
+    
+ => Create new dummyGroup(no user no policy)   
+    =>Select create group
+        =>Permission
+            =>Add Inline Policies
+            =>Json
+                =>Create policy
+                    =>Write JSon
+                    {
+                        "Version":"2012-10-18",
+                        "Statement":{
+                            "Effect":"Allow",
+                            "Action":"sts:AssumeRole",
+                            "Resource":"arn:aws:iam::276374296137:role/S3extrenalAcess"
+                                        (ARN of role created)
+                        }
+                    }
+                    => Attach user to group
+
+=> Login with IAM user
+    =>Swtich role
+    =>Account* (number od aakashhand account)
+       Role* (created in aakash handa account)
+       =>Switch Role
+
+
+mysql -h demodb.csdfnctztcgm.us-east-1.rds.amazonaws.com -P 3306
+-u root -p password
