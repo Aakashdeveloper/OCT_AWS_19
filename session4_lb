@@ -1,0 +1,23 @@
+Create one Auto Scale Group 
+(choose second linux)
+You to Add one AMI,
+
+
+Create load balancer
+Add Auto to LB
+
+Make Sure all machine in LB is in service
+(bootstrap script will help)
+
+Than on indivial machine make stress test and check its laucnhing
+new machine or not
+
+
+/***
+Stree Testing
+**/
+> launch EC2
+> sudo yum install stress -y
+> stress
+> remove stress
+

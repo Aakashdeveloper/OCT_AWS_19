@@ -1,0 +1,39 @@
+=> Round robin method
+
+123456*8910
+
+
+<html>
+<head></head>
+<body style="background-color:red">
+<h1>Linux Third Machine</h1>
+</body>
+</html>
+
+=> Must have min 2 Ec2 instance
+=> Make index.html up & running
+=> Ec2 console
+    => Load balancer
+        => Create load balancer 
+            => Select classic load balancer
+                => Provide LB name and select VPC
+                    => Enable advanced VPC configuration === Checked
+                        => Please select at least two Subnets in different Availability 
+                           Zones to provide higher availability for your load balancer.
+                           => Select your subnet
+                            Loadbalancerport   Load Balancer Port    Instance Protocol   Instance Port
+                                Http                80                      Http              80
+
+=> Configure health Check
+
+Ping Protocol   == Http
+Ping Port ===      80
+Ping Path ==       index.html
+
+Response Timeout === 5 seconds
+Interval ====30 seconds
+Unhealthy threshold   ==  2
+Healthy threshold     ==10
+    => Add Ec2 instance
+        => Add Tag
+            =>Review & launch

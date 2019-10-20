@@ -1,0 +1,13 @@
+SQL
+NoSql ==> not a sql
+
+| sno. | Hindi | English
+    1       80      
+    2             80
+
+[
+    {
+        sn:1,
+        hindi:80
+    }
+]

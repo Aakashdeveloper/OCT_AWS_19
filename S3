@@ -1,0 +1,10 @@
+Data Archive,
+Backup
+Storage large amount of Data
+S3=> Global Service[access from anaywhere]
+
+99.99999999
+
+=>100 bucket per account
+=>Object Size <= 5Tb
+=> upto 5GB is free
