@@ -1,0 +1,34 @@
+step 1>
+instal cli
+
+step 2>
+aws configure
+
+step 3>
+access key id
+access secert key
+
+step 4>
+aws <service name> command
+aws s3 ls
+
+
+/*************
+*************/
+> policy can attached to the user not vice-verse
+> Group reduce work ok assign policy to individual user 
+  we can assign multiple policy to multiple user
+> User can to attached to multiple policy and we can add MFA to that
+> Role are for the service not the user
+
+
+User have access to EC2 and s3
+But ec2 dont have access to s3
+
+User have access to ec2 but not s3
+But ec2 have access to s3
+
+User have access to ec2 and  s3    => Add policy
+But ec2 have access to s3          => Role
+
+

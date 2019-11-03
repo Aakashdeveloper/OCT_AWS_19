@@ -1,0 +1,56 @@
+/*****************************
+        Acc 1
+*****************************/
+>> Saurabh
+S3 document
+
+Step1>
+Create new role(s3accesexternal)with tab aws another account
+Step2>
+Add account to "acc2(Aakash)"
+step3>
+Attcah policy s3fullaccess
+
+/*****************************
+        Acc 2
+*****************************/
+>> Aakash
+>> need s3 document from saurabh
+
+Step1>
+Create a new group
+Step 2>
+Initally create dummy group without any policy
+Step3>
+After creating attched inline policy
+Step4>
+Add json to policy
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": "sts:AssumeRole",
+        "Resource": "arn:"
+    }
+}
+Step5>
+Attach group to the user created
+
+Step6>
+Sign in with IAM user
+
+Step7>
+switch role and enter account id of acc1(saurabh)
+
+step8>
+Now you can access resource of s3 from saurbh account
+
+
+
+Something I practised and have a ques: Created a gr 
+Business Analyst and tried to add policy: Read Only 
+but for few could not be added eg. AtuoScaling, SNS, 
+SQS Readonly. The next tab was disabled, 
+do you know why? Not sure if I am missing anything.
+
+99.99999999

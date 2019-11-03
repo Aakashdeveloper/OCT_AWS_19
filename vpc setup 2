@@ -1,0 +1,223 @@
+CIDR(classless interdomain routing)
+
+
+IPV4 - 32 bit
+(0-255)
+x.x.x.x/16 ---- x.x.x.x/28
+
+10.0.0.0/16 -----> 32-16 = 16 => 2^16 == 65536ipaddress
+10.0.0.0/24------> 32-24 = 8 => 2^8 === 256 
+10.0.0.0/20  ----> 32-20 =12  => 2^12 ===== 4096
+                32-28=4   => 2^4= 16
+
+
+IPV6- 126bit
+
+
+=>VPC
+=> Route Table
+    -> private
+    -> public
+=> Subnet
+=> Internet gateway
+-> attach out IG
+-> EC2 in Subnet
+-> NAT gateway
+-> Nat instance
+->SG
+->NACL
+->Peering VPC
+
+/*************************
+    Default VPC
+*************************/
+=> Should not delete default VPC
+=> To create new default VPC
+    => Actions
+        => create default VPC
+
+/*************************
+    Create VPC
+*************************/
+=> Click create vpc
+    => Add name, ipv4(10.0.0.0/16)
+        => Click on create
+
+=>In Routing Table
+    => Click route Table(you will find the entries)
+
+/*************************
+    Create Subnet
+*************************/  
+=> GO to subnet Tab
+    => Click create subnet(public subnet)
+        => Provide name
+        => Select you VPC
+        => Choose AZ
+        => IPv4 10.0.1.0/24
+    => Click create subnet(private subnet)
+        => Provide name
+        => Select you VPC
+        => Choose AZ
+        => IPv4 10.0.2.0/24
+
+/*************************
+    Create IG
+*************************/
+=> Go To Internet Gateway
+    => Click on create IG
+        => Provide Some name
+            => Click on Create
+    => Connect IG
+        => Select IG
+            => CLick on Actions
+            => Attach to VPC
+            => Select Your VPC
+                => Click Attach
+*** One IG for one VPC
+
+/*************************
+    Create Route Table
+*************************/
+=> Go to Route Table Tab
+    =>Select Create Route Table(Private)
+        => Provide name(private RT)
+        => Select VPC
+    =>Select Create Route Table(Public)
+        => Provide name(Public RT)
+        => Select VPC
+
+=> Select Private Route Table
+    => Click Subnet association Tab
+        => Edit subnet association
+            => Select Private subnet
+                => Save
+=> Select Public Route Table
+    => Click Subnet association Tab
+        => Edit subnet association
+            => Select Public subnet
+                => Save
+
+/*************************
+    Connect IG
+*************************/
+=> Select Public Route Table
+    => CLick Route Tab
+        => Edit Routes
+            =>Add Route
+                Destination                 Target
+                0.0.0.0/0                   IG name(juneIG)
+
+/*************************
+Launch EC2 in Public subnet
+*************************/
+=> From Services select EC2
+    =>Select Linux
+        => Select t2.micro
+            =>Configure instance
+                Network     Subnet           Auto-assign
+                juneVpc     Public Subnet       Enable
+
+// For windows
+Convet .pem  to .ppk
+puttygen
+
+
+/*************************
+Launch EC2 in Private subnet
+*************************/
+=> From Services select EC2
+    =>Select Linux
+        => Select t2.micro
+            =>Configure instance
+                Network     Subnet           Auto-assign
+                juneVpc     Public Subnet       disable
+
+
+/**************************************
+        Step to access private subnet
+**************************************/
+=> Launch your public EC2
+=> sudo su -
+=> copy private ec2 .pem
+=> Create new file in public ec2 
+    => vi privatepem.pem
+    => Paste your .pem file content
+    => press esc
+    => press coln(:)
+    => type wq!
+    => press enter
+        => Change permission (chmod 400 privatepem.pem)
+            => ssh i privatepem.pem ec2-user@10.0.2.61(private ec2 ip)
+
+/**************************************
+        Step to creating NAT
+**************************************/
+
+=> Select Nat gateway tab from VPC
+    => Click on create NAT
+        => Select public subnet 
+            => Create elastic IP
+                => create Nat Gateway
+                    => Edit Route Table
+                        => Select Private Route Table
+                            => Select Route Tab and Edit Route
+                                =>Add Route
+                                Destination          Target
+                                0.0.0.0/0              nat
+
+
+/**************************************
+        Step to VPC Peering 
+**************************************/
+=> IN VPC select peering connections
+    => Name of your group
+    => VPC (Requester)
+    => VPC (Accepter)
+
+
+
+    IG can make public to access from outside
+    but nat make private subnet to access public resource
+
+ping google.com
+
+
+SG
+--> firewal accross the instance
+--> statefull in nature
+--> deny all mode
+NACL
+--> firewall accross the subnet
+--> stateless
+-> allow all
+-> rule number decide prioty
+
+/**************************************
+        Step to Nat Instance
+**************************************/
+==> Go to EC2
+=> Lunch instance
+=> Select Coummity AMI
+=> Search Nat
+=> Select first
+=> Action=> network => change sorc/dest => yes disable
+=>
+Got to Elastic IP
+=> Create new EIP
+=> Action=> associate 
+=> Select instance
+
+
+SG>
+=>Go to vpc
+=> select secuirty group
+=> provide some name
+=> Set inbound and outbound rules
+
+
+ACL>
+=>Go to vpc
+=> Select ACL
+=> Create ACL
+=> Set inbound and outbound rules
