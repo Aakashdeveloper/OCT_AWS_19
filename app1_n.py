@@ -29,7 +29,7 @@ class Apiservice():
     def __init__(self):
     
       print('Inside __init__')
-      self.conn = psycopg2.connect(user='postgres',password='admin12345',host="database-1.c2kvzjsqloxc.ap-south-1.rds.amazonaws.com",port=5432,dbname='postgres')
+      self.conn = psycopg2.connect(user='postgres',password='admin12345',host="database-1.cjcjgqizui8x.us-east-1.rds.amazonaws.com",port=5432,dbname='postgres')
 
       
     def getConnection (self):
@@ -41,7 +41,7 @@ class Apiservice():
 
        except Exception as exc:
           logger.error(exc)
-          self.conn = psycopg2.connect(user='postgres',password='admin12345',host="database-1.c2kvzjsqloxc.ap-south-1.rds.amazonaws.com",port=5432,dbname='postgres')
+          self.conn = psycopg2.connect(user='postgres',password='admin12345',host="database-1.cjcjgqizui8x.us-east-1.rds.amazonaws.com",port=5432,dbname='postgres')
 
        return self.conn
 
@@ -80,7 +80,7 @@ class Apiservice():
                 userinfo={}
                 userinfo["uname"]= output[i][0]
                 userinfo["empid"]= output[i][1]
-                userinfo["tech"]= output[i][2]
+                userinfo["tect"]= output[i][2]
                 outArray.append(userinfo)     
         except Exception as exc:
             print(exc)
@@ -94,8 +94,8 @@ class Apiservice():
         body = request.json
         uname= body['uname']
         empid= body['empid']
-        tech= body['tech']
-        sql_ins="""INSERT INTO userinfo(uname,empid,tech) VALUES (%s,%s,%s)"""
+        tech= body['tect']
+        sql_ins="""INSERT INTO userinfo(uname,empid,tect) VALUES (%s,%s,%s)"""
         values=(uname,empid,tech)
         out = apiService.postData(sql_ins,values)
         return out
